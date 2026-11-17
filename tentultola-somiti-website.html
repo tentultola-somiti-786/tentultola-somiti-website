@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>তেঁতুলতলা মৎস্য চাষী সমবায় সমিতি লিঃ</title>
+<style>
+:root{--green:#087f5b;--deep:#075b43;--bg:#f3f7f5;--ink:#18332a;--muted:#61756d;--line:#dce8e2}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(135deg,var(--deep),#0b9b6c);color:#fff;padding:24px 16px;text-align:center}
+header h1{font-size:clamp(21px,4vw,30px);margin:0 0 7px}header p{margin:0;opacity:.9}
+main{max-width:1050px;margin:22px auto;padding:0 14px}
+.panel,.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:0 4px 18px #1232;margin-bottom:16px}
+h2{font-size:20px;margin:0 0 14px}.muted{color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.stat{background:#f0faf5;border:1px solid #d9eee3;border-radius:12px;padding:15px}.stat b{display:block;font-size:23px;color:var(--deep);margin-top:5px}
+label{display:block;font-size:14px;margin:10px 0 5px}input,select,button{font:inherit}input,select{width:100%;padding:11px;border:1px solid #cbdad2;border-radius:9px;background:#fff}
+button{border:0;border-radius:9px;padding:11px 16px;background:var(--green);color:#fff;font-weight:650;cursor:pointer;margin-top:12px}button.secondary{background:#e8f3ed;color:var(--deep)}button.danger{background:#b42318}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{background:#f2f8f4}
+.table-wrap{overflow-x:auto}.hidden{display:none}.notice{background:#fff8e6;border:1px solid #f3dfaa;padding:12px;border-radius:10px;font-size:14px}
+footer{text-align:center;color:var(--muted);padding:22px;font-size:13px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tabs button{margin:0}
+@media(max-width:500px){.panel{padding:14px}th,td{padding:8px}}
+</style>
+</head>
+<body>
+<header>
+<h1>তেঁতুলতলা মৎস্য চাষী সমবায় সমিতি লিঃ</h1>
+<p>সদস্য তথ্য • মাসিক জমা • আয়-ব্যয় • ঋণ ও কিস্তি</p>
+</header>
+<main>
+<section id="login" class="panel">
+<h2>লগইন</h2>
+<p class="muted">ডেমো প্রশাসক লগইন দিয়ে ওয়েবসাইটের নমুনা অংশ দেখুন।</p>
+<div class="row">
+<div><label for="phone">মোবাইল নম্বর</label><input id="phone" inputmode="tel" placeholder="মোবাইল নম্বর"></div>
+<div><label for="password">পাসওয়ার্ড</label><input id="password" type="password" placeholder="পাসওয়ার্ড"></div>
+</div>
+<button onclick="login()">লগইন করুন</button>
+<p id="loginMsg" class="muted"></p>
+<div class="notice">ডেমো লগইন: মোবাইল <b>01700000000</b> &nbsp; পাসওয়ার্ড <b>123456</b></div>
+</section>
+
+<section id="app" class="hidden">
+<div class="panel">
+<div class="row" style="align-items:center">
+<div style="flex:1"><h2 style="margin-bottom:4px">সমিতির ড্যাশবোর্ড</h2><span class="muted">স্বাগতম, প্রশাসক</span></div>
+<button class="secondary" onclick="logout()">লগআউট</button>
+</div>
+</div>
+<div class="grid">
+<div class="stat">মাসিক জমা (নির্ধারিত)<b>২০০ টাকা</b></div>
+<div class="stat">সদস্য সংখ্যা<b id="memberCount">০</b></div>
+<div class="stat">জমার এন্ট্রি<b id="depositCount">০</b></div>
+<div class="stat">আয়-ব্যয়ের এন্ট্রি<b id="ledgerCount">০</b></div>
+</div>
+<div class="panel">
+<div class="tabs">
+<button onclick="showTab('members')">সদস্য তথ্য</button>
+<button class="secondary" onclick="showTab('deposits')">মাসিক জমা</button>
+<button class="secondary" onclick="showTab('ledger')">আয়-ব্যয়</button>
+<button class="secondary" onclick="showTab('loans')">ঋণ ও কিস্তি</button>
+</div>
+<div id="members">
+<h2>সদস্য যোগ করুন</h2>
+<div class="row">
+<div><label>সদস্যের নাম</label><input id="mname" placeholder="নাম"></div>
+<div><label>মোবাইল নম্বর</label><input id="mphone" placeholder="মোবাইল নম্বর"></div>
+<div><label>ঠিকানা</label><input id="maddress" placeholder="গ্রাম / ঠিকানা"></div>
+</div><button onclick="addMember()">সদস্য সংরক্ষণ</button>
+<div class="table-wrap"><table><thead><tr><th>নাম</th><th>মোবাইল</th><th>ঠিকানা</th></tr></thead><tbody id="memberRows"></tbody></table></div>
+</div>
+<div id="deposits" class="hidden">
+<h2>মাসিক জমার হিসাব</h2>
+<div class="row">
+<div><label>সদস্যের নাম</label><input id="dname" placeholder="সদস্যের নাম"></div>
+<div><label>মাস</label><input id="dmonth" type="month"></div>
+<div><label>টাকার পরিমাণ</label><input id="damount" type="number" value="200"></div>
+</div><button onclick="addDeposit()">জমা সংরক্ষণ</button>
+<div class="table-wrap"><table><thead><tr><th>সদস্য</th><th>মাস</th><th>টাকা</th></tr></thead><tbody id="depositRows"></tbody></table></div>
+</div>
+<div id="ledger" class="hidden">
+<h2>আয়-ব্যয়ের হিসাব</h2>
+<div class="row">
+<div><label>ধরন</label><select id="ltype"><option>আয়</option><option>ব্যয়</option></select></div>
+<div><label>বিবরণ</label><input id="ldesc" placeholder="বিবরণ"></div>
+<div><label>টাকা</label><input id="lamount" type="number" placeholder="টাকার পরিমাণ"></div>
+</div><button onclick="addLedger()">হিসাব সংরক্ষণ</button>
+<div class="table-wrap"><table><thead><tr><th>ধরন</th><th>বিবরণ</th><th>টাকা</th></tr></thead><tbody id="ledgerRows"></tbody></table></div>
+</div>
+<div id="loans" class="hidden">
+<h2>ঋণ ও কিস্তির হিসাব</h2>
+<div class="row">
+<div><label>সদস্যের নাম</label><input id="loanname" placeholder="সদস্যের নাম"></div>
+<div><label>ঋণের পরিমাণ</label><input id="loanamount" type="number" placeholder="টাকা"></div>
+<div><label>কিস্তির পরিমাণ</label><input id="installment" type="number" placeholder="টাকা"></div>
+</div><button onclick="addLoan()">ঋণের তথ্য সংরক্ষণ</button>
+<div class="table-wrap"><table><thead><tr><th>সদস্য</th><th>ঋণ</th><th>কিস্তি</th></tr></thead><tbody id="loanRows"></tbody></table></div>
+</div>
+</div>
+<div class="notice">গুরুত্বপূর্ণ: এটি প্রাথমিক নমুনা। তথ্য শুধু এই ব্রাউজারের ডিভাইসে সংরক্ষিত হয়; নিরাপদ অনলাইন ডাটাবেজ, প্রকৃত সদস্য লগইন, রসিদ প্রিন্ট এবং অনলাইন টাকা জমার ব্যবস্থা এখনো যুক্ত হয়নি। বাস্তব সদস্যদের আর্থিক তথ্য এখানে দেবেন না।</div>
+</section>
+</main>
+<footer>© তেঁতুলতলা মৎস্য চাষী সমবায় সমিতি লিঃ</footer>
+<script>
+const $=id=>document.getElementById(id);
+let data={members:[],deposits:[],ledger:[],loans:[]};
+function login(){if($('phone').value==='01700000000'&&$('password').value==='123456'){$('login').classList.add('hidden');$('app').classList.remove('hidden');render()}else{$('loginMsg').textContent='মোবাইল নম্বর অথবা পাসওয়ার্ড সঠিক নয়।'}}
+function logout(){$('app').classList.add('hidden');$('login').classList.remove('hidden')}
+function showTab(tab){['members','deposits','ledger','loans'].forEach(x=>$(x).classList.toggle('hidden',x!==tab))}
+function addMember(){let n=$('mname').value.trim();if(!n)return alert('সদস্যের নাম লিখুন');data.members.push({n,p:$('mphone').value,a:$('maddress').value});$('mname').value=$('mphone').value=$('maddress').value='';render()}
+function addDeposit(){let n=$('dname').value.trim();if(!n)return alert('সদস্যের নাম লিখুন');data.deposits.push({n,m:$('dmonth').value,a:Number($('damount').value)||0});render()}
+function addLedger(){let d=$('ldesc').value.trim();if(!d)return alert('বিবরণ লিখুন');data.ledger.push({t:$('ltype').value,d,a:Number($('lamount').value)||0});render()}
+function addLoan(){let n=$('loanname').value.trim();if(!n)return alert('সদস্যের নাম লিখুন');data.loans.push({n,a:Number($('loanamount').value)||0,i:Number($('installment').value)||0});render()}
+function cell(v){let td=document.createElement('td');td.textContent=v??'';return td}
+function row(target,values){let tr=document.createElement('tr');values.forEach(v=>tr.appendChild(cell(v)));$(target).appendChild(tr)}
+function render(){
+['memberRows','depositRows','ledgerRows','loanRows'].forEach(id=>$(id).replaceChildren());
+data.members.forEach(x=>row('memberRows',[x.n,x.p,x.a]));
+data.deposits.forEach(x=>row('depositRows',[x.n,x.m,x.a+' টাকা']));
+data.ledger.forEach(x=>row('ledgerRows',[x.t,x.d,x.a+' টাকা']));
+data.loans.forEach(x=>row('loanRows',[x.n,x.a+' টাকা',x.i+' টাকা']));
+$('memberCount').textContent=data.members.length;$('depositCount').textContent=data.deposits.length;$('ledgerCount').textContent=data.ledger.length;
+}
+</script>
+</body></html>
